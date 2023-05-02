@@ -1,9 +1,9 @@
 package services
 
-import dao.UserDAO
+import dao.CtfDAO
 import java.util.*
 
-class UserServiceImpl(private val userDao: UserDAO) : UserService {
+class UserServiceImpl(private val userDao: CtfDAO) : UserService {
     override fun create(user: UserEntity): UserEntity {
         return userDao.create(user)
     }

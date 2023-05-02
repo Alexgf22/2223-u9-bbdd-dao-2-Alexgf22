@@ -75,4 +75,22 @@ class CtfDAO: ICtfDao {
         stmt.setInt(1, id)
         stmt.executeUpdate()
     }
+
+    override fun obtenerTodosCtfs(): MutableList<CTF> {
+        val stmt = conexion.createStatement()
+        val rs = stmt.executeQuery("SELECT * FROM CTFS")
+        val ctfs = mutableListOf<CTF>()
+        while (rs.next()) {
+            ctfs.add(
+                CTF(
+                    rs.getInt("CTFid"),
+                    rs.getInt("grupoid"),
+                    rs.getInt("puntuacion")
+                )
+            )
+        }
+        return ctfs
+    }
+
+
 }

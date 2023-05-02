@@ -7,6 +7,7 @@ interface ICtfDao {
     fun obtenerCtf(id: Int): CTF?
     fun actualizarCtf(ctf: CTF)
     fun eliminarCtf(id: Int)
+    fun obtenerTodosCtfs(): List<CTF>
 }
 
 
