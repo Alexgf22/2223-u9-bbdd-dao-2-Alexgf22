@@ -4,9 +4,9 @@ import dao.entity.Grupo
 
 interface IGrupoDao {
     fun crearGrupo(grupo: Grupo)
-    fun obtenerGrupo(grupoId: Int): Grupo?
-    fun actualizarGrupo(grupo: Grupo)
-    fun eliminarGrupo(grupoId: Int)
+    fun obtenerGrupo(id: Int): Grupo?
+    fun actualizarMejorPosCtf(grupo: Grupo)
+    fun eliminarGrupo(id: Int)
     fun obtenerTodosGrupos(): List<Grupo>
     fun eliminarTodosGrupos()
 }

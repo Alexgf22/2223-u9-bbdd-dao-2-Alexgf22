@@ -37,11 +37,11 @@ class GrupoDAO: IGrupoDao {
 
     }
 
-    override fun obtenerGrupo(grupoId: Int): Grupo? {
+    override fun obtenerGrupo(id: Int): Grupo? {
         val stmt = conexion.prepareStatement("""
             SELECT * FROM GRUPOS WHERE grupoid=?
         """.trimIndent())
-        stmt.setInt(1, grupoId)
+        stmt.setInt(1, id)
         val rs = stmt.executeQuery()
         return if (rs.next()) {
             Grupo(
@@ -59,7 +59,7 @@ class GrupoDAO: IGrupoDao {
 
 
 
-    override fun actualizarGrupo(grupo: Grupo) {
+    override fun actualizarMejorPosCtf(grupo: Grupo) {
         val stmt = conexion.prepareStatement("""
             SELECT CTFid, puntuacion FROM CTFS WHERE grupoid=? ORDER BY puntuacion DESC LIMIT 1
         """.trimIndent())
@@ -81,11 +81,11 @@ class GrupoDAO: IGrupoDao {
 
 
 
-    override fun eliminarGrupo(grupoId: Int) {
+    override fun eliminarGrupo(id: Int) {
         val stmt = conexion.prepareStatement("""
         DELETE FROM GRUPOS WHERE grupoid=?
     """.trimIndent())
-        stmt.setInt(1, grupoId)
+        stmt.setInt(1, id)
         stmt.executeUpdate()
 
     }
