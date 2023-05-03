@@ -4,21 +4,24 @@ import dao.entity.CTF
 import dao.interfaces.ICtfDao
 import java.sql.Connection
 import java.sql.DriverManager
+import javax.sql.DataSource
 
 
-class CtfDAO: ICtfDao {
+class CtfDAO(private val dataSource: DataSource): ICtfDao {
 
     private val conexion: Connection = DriverManager.getConnection("jdbc:h2:mem:test")
 
     init {
-        conexion.createStatement().executeUpdate("""
+        conexion.createStatement().executeUpdate(
+            """
             CREATE TABLE IF NOT EXISTS CTFS (
                 CTFid INT NOT NULL,
                 grupoid INT NOT NULL,
                 puntuacion INT NOT NULL,
                 PRIMARY KEY (CTFid,grupoid)
             )
-        """.trimIndent())
+        """.trimIndent()
+        )
     }
 
 
@@ -29,68 +32,85 @@ class CtfDAO: ICtfDao {
      * ejecutamos dicha sentencia para que la tabla se actualice con los nuevos datos.
      */
     override fun crearCtf(ctf: CTF) {
-        val stmt = conexion.prepareStatement("""
-            INSERT INTO CTFS(CTFid, grupoid, puntuacion) VALUES(?, ?, ?)
-        """.trimIndent())
-        stmt.setInt(1, ctf.CTFid)
-        stmt.setInt(2, ctf.grupoid)
-        stmt.setInt(3, ctf.puntuacion)
-        stmt.executeUpdate()
+        val sql = "INSERT INTO CTFS(CTFid, grupoid, puntuacion) VALUES(?, ?, ?)"
+        return dataSource.connection.use { conn ->
+            conn.prepareStatement(sql).use { stmt ->
+                stmt.setInt(1, ctf.CTFid)
+                stmt.setInt(2, ctf.grupoid)
+                stmt.setInt(3, ctf.puntuacion)
+                ctf
+            }
+        }
     }
 
     override fun obtenerCtf(id: Int): CTF? {
-        val stmt = conexion.prepareStatement("""
-            SELECT * FROM CTFS WHERE CTFid=?
-        """.trimIndent())
-        stmt.setInt(1, id)
-        val rs = stmt.executeQuery()
-        return if (rs.next()) {
-            CTF(
-                rs.getInt("CTFid"),
-                rs.getInt("grupoid"),
-                rs.getInt("puntuacion")
-            )
-        } else {
-            null
+        val sql2 = "SELECT * FROM CTFS WHERE CTFid=?"
+        return dataSource.connection.use { conn ->
+            conn.prepareStatement(sql2).use { stmt ->
+                stmt.setInt(1, id)
+                val rs = stmt.executeQuery()
+                if (rs.next()) {
+                    CTF(
+                        rs.getInt("CTFid"),
+                        rs.getInt("grupoid"),
+                        rs.getInt("puntuacion")
+                    )
+                } else {
+                    null
+                }
+            }
         }
     }
 
     override fun actualizarCtf(ctf: CTF) {
-        val stmt = conexion.prepareStatement("""
-            UPDATE CTFS SET grupoid=?, puntuacion=? WHERE CTFid=?
-        """.trimIndent())
-        stmt.setInt(1, ctf.grupoid)
-        stmt.setInt(2, ctf.puntuacion)
-        stmt.setInt(3, ctf.CTFid)
-        stmt.executeUpdate()
+        val sql3 = "UPDATE CTFS SET grupoid=?, puntuacion=? WHERE CTFid=?"
+        return dataSource.connection.use { conn ->
+            conn.prepareStatement(sql3).use { stmt ->
+                stmt.setInt(1, ctf.grupoid)
+                stmt.setInt(2, ctf.puntuacion)
+                stmt.setInt(3, ctf.CTFid)
+                stmt.executeUpdate()
+                ctf
+            }
+        }
     }
+
 
     /**
      *
      */
     override fun eliminarCtf(id: Int) {
-        val stmt = conexion.prepareStatement("""
-            DELETE FROM CTFS WHERE CTFid=?
-        """.trimIndent())
-        stmt.setInt(1, id)
-        stmt.executeUpdate()
+        val sql4 = "DELETE FROM CTFS WHERE CTFid=?"
+        return dataSource.connection.use { conn ->
+            conn.prepareStatement(sql4).use { stmt ->
+                stmt.setInt(1, id)
+                stmt.executeUpdate()
+            }
+        }
     }
 
+
     override fun obtenerTodosCtfs(): MutableList<CTF> {
-        val stmt = conexion.createStatement()
-        val rs = stmt.executeQuery("SELECT * FROM CTFS")
-        val ctfs = mutableListOf<CTF>()
-        while (rs.next()) {
-            ctfs.add(
-                CTF(
-                    rs.getInt("CTFid"),
-                    rs.getInt("grupoid"),
-                    rs.getInt("puntuacion")
-                )
-            )
+        val sql5 = "SELECT * FROM CTFS"
+        return dataSource.connection.use { conn ->
+            conn.prepareStatement(sql5).use { stmt ->
+                val rs = stmt.executeQuery()
+                val ctfs = mutableListOf<CTF>()
+                while (rs.next()) {
+                    ctfs.add(
+                        CTF(
+                            rs.getInt("CTFid"),
+                            rs.getInt("grupoid"),
+                            rs.getInt("puntuacion")
+                        )
+                    )
+                }
+                ctfs
+            }
         }
-        return ctfs
     }
+
+
 
 
 }

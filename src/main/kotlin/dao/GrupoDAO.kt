@@ -5,8 +5,9 @@ import dao.interfaces.IGrupoDao
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.Statement
+import javax.sql.DataSource
 
-class GrupoDAO: IGrupoDao {
+class GrupoDAO(private val dataSource: DataSource): IGrupoDao {
 
     private val conexion: Connection = DriverManager.getConnection("jdbc:h2:mem:test")
 
