@@ -59,12 +59,42 @@ fun main(args: Array<String>) {
             if(args.size != 4) {
                 println("ERROR: El número de parametros no es adecuado.")
             }
-            val ctfid = args[1].toInt()
-            val grupoid = args[2].toInt()
-            val puntuacion = args[3].toInt()
-            val nuevoCtf = CTF(ctfid,grupoid,puntuacion)
-            ctfService.crearCtf(nuevoCtf)
-            println("Procesado: Añadida participación del grupo $grupoid en el CTF $ctfid con una puntuación de $puntuacion puntos.")
+            else {
+                val ctfid = args[1].toInt()
+                val grupoid = args[2].toInt()
+                val puntuacion = args[3].toInt()
+
+                // Obtenemos el grupo que pertenece el grupoid
+                val grupo = grupoService.obtenerGrupo(grupoid)
+
+                if (grupo != null) {
+                    /* Comprobamos si el CTF con 'id' ctfid ya cuenta con una participación del grupo
+                       con 'id' grupoid
+                     */
+                    val existeCtf = ctfService.obtenerCtf(ctfid)?.let{it.grupoid == grupoid } ?: false
+
+                    if (existeCtf) {
+                        println("ERROR: Ya existe una participación del grupo $grupoid en el CTF $ctfid.")
+                    }
+                    else {
+
+                        // Creamos si no existe el nuevo Ctf para insertarlo en la tabla
+                        val nuevoCtf = CTF(ctfid, grupoid, puntuacion)
+                        ctfService.crearCtf(nuevoCtf)
+
+                        // Actualizar el campo mejorposCTFid de los grupos en la tabla GRUPOS
+                        // TODO grupoService.actualizarMejorPosCtf()
+
+                        println("Procesado: Añadida participación del grupo $grupoid en el CTF $ctfid con una puntuación de $puntuacion puntos.")
+                    }
+
+                }
+                else {
+                    println("ERROR: El grupo $grupoid no existe.")
+                }
+
+
+            }
         }
 
         // Operación 2
