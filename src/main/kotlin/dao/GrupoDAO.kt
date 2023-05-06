@@ -16,9 +16,18 @@ class GrupoDAO(private val dataSource: DataSource): IGrupoDao {
                 grupoid INT NOT NULL AUTO_INCREMENT,
                 grupodesc VARCHAR(100) NOT NULL,
                 mejorposCTFid INT,
-                PRIMARY KEY (grupoid)
+                PRIMARY KEY (grupoid),
+                FOREIGN KEY (mejorposCTFid) REFERENCES CTFS(CTFid),
+                FOREIGN KEY (mejorposCTFid, grupoid) REFERENCES CTFS(CTFid,grupoid)
             )
         """.trimIndent())
+
+        conexion.createStatement().executeUpdate("insert into grupos(grupoid, grupodesc) values(1, '1DAM-G1')")
+        conexion.createStatement().executeUpdate("insert into grupos(grupoid, grupodesc) values(2, '1DAM-G2')")
+        conexion.createStatement().executeUpdate("insert into grupos(grupoid, grupodesc) values(3, '1DAM-G3')")
+        conexion.createStatement().executeUpdate("insert into grupos(grupoid, grupodesc) values(4, '1DAW-G1')")
+        conexion.createStatement().executeUpdate("insert into grupos(grupoid, grupodesc) values(5, '1DAW-G2')")
+        conexion.createStatement().executeUpdate("insert into grupos(grupoid, grupodesc) values(6, '1DAW-G3')")
     }
 
 
