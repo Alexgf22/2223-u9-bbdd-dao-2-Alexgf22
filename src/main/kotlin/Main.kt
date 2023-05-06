@@ -47,13 +47,19 @@ fun main(args: Array<String>) {
 
     // Operaciones
 
+    /*
+    args[0] = "-a"
+    args[1] = 1
+    args[2] = 2
+    args[3] = 100
+    */
+
+
     if (args.isEmpty()) {
         println("ERROR: El número de parametros no es adecuado.")
     }
 
-    val cmd = args[0]
-
-    when (cmd) {
+    when (args[0]) {
         // Operación 1
         "-a" -> {
             if(args.size != 4) {
