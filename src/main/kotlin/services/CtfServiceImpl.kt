@@ -17,8 +17,8 @@ class CtfServiceImpl(private val ctfDao: CtfDAO): ICtfService {
         return ctfDao.actualizarCtf(ctf)
     }
 
-    override fun eliminarCtf(id: Int) {
-        return ctfDao.eliminarCtf(id)
+    override fun eliminarCtf(id: Int, grupoid: Int) {
+        return ctfDao.eliminarCtf(id, grupoid)
     }
 
     override fun obtenerTodosCtfs(): List<CTF> {

@@ -79,11 +79,12 @@ class CtfDAO(private val dataSource: DataSource): ICtfDao {
     /**
      *
      */
-    override fun eliminarCtf(id: Int) {
-        val sql4 = "DELETE FROM CTFS WHERE CTFid=?"
+    override fun eliminarCtf(id: Int, grupoid: Int) {
+        val sql4 = "DELETE FROM CTFS WHERE CTFid=? AND grupoid=?"
         return dataSource.connection.use { conn ->
             conn.prepareStatement(sql4).use { stmt ->
                 stmt.setInt(1, id)
+                stmt.setInt(2, grupoid)
                 stmt.executeUpdate()
             }
         }

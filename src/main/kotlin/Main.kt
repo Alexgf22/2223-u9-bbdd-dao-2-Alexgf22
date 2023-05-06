@@ -82,8 +82,14 @@ fun main(args: Array<String>) {
                         val nuevoCtf = CTF(ctfid, grupoid, puntuacion)
                         ctfService.crearCtf(nuevoCtf)
 
-                        // Actualizar el campo mejorposCTFid de los grupos en la tabla GRUPOS
-                        // TODO grupoService.actualizarMejorPosCtf()
+                        /* Actualizar el campo mejorposCTFid de cada grupo en la tabla GRUPOS iterando
+                           sobre cada uno.
+
+                         */
+                        val grupos = grupoService.obtenerTodosGrupos()
+                        for (cadaGrupo in grupos) {
+                            grupoService.actualizarMejorPosCtf(cadaGrupo)
+                        }
 
                         println("Procesado: Añadida participación del grupo $grupoid en el CTF $ctfid con una puntuación de $puntuacion puntos.")
                     }
@@ -104,8 +110,29 @@ fun main(args: Array<String>) {
             }
             val ctfid = args[1].toInt()
             val grupoid = args[2].toInt()
-            ctfService.eliminarCtf(ctfid)
-            println("Procesado: Eliminada participación del grupo $grupoid en el CTF $ctfid.")
+
+            /*
+            Se elimina la participación del grupoid en el Ctf con id 'ctfid', después se obtiene
+            el grupo con el id específico y si no es nulo se llama ahora a actualizarMejorPosCtf()
+            y se le pasa por parámetro el grupo una vez eliminada la participación anteriormente.
+             */
+            if (ctfService.obtenerCtf(ctfid) != null) {
+                ctfService.eliminarCtf(ctfid, grupoid)
+                println("Procesado: Eliminada participación del grupo $grupoid en el CTF $ctfid.")
+
+                /* Actualizar el campo mejorposCTFid de cada grupo en la tabla GRUPOS iterando
+                   sobre cada uno.
+
+                 */
+                val grupos = grupoService.obtenerTodosGrupos()
+                for (cadaGrupo in grupos) {
+                    grupoService.actualizarMejorPosCtf(cadaGrupo)
+                }
+
+            } else {
+                println("La participación del grupo $grupoid en CTF $ctfid no existe.")
+            }
+
         }
 
         // Operación 3

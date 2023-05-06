@@ -4,7 +4,6 @@ import dao.entity.Grupo
 import dao.interfaces.IGrupoDao
 import java.sql.Connection
 import java.sql.DriverManager
-import java.sql.Statement
 import javax.sql.DataSource
 
 class GrupoDAO(private val dataSource: DataSource): IGrupoDao {
