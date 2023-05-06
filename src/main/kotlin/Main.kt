@@ -34,11 +34,11 @@ fun main(args: Array<String>) {
     // Creamos la instancia de ctfDao
     val ctfDao = CtfDAO(dataSource)
 
-    // Creamos la instancia de grupoDao
-    val grupoDao = GrupoDAO(dataSource)
-
     // Creamos la instancia de CtfService
     val ctfService = CtfServiceImpl(ctfDao)
+
+    // Creamos la instancia de grupoDao
+    val grupoDao = GrupoDAO(dataSource)
 
     // Creamos la instancia de GrupoService
     val grupoService = GrupoServiceImpl(grupoDao)
