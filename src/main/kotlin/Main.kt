@@ -1,14 +1,14 @@
-import dao.CtfDAO
-import dao.GrupoDAO
+import dao.GrupoCtfDAO
 import dao.entity.CTF
-import dao.entity.Grupo
-import services.CtfServiceImpl
-import services.GrupoServiceImpl
+import services.GrupoCtfServiceImpl
 import sql_utils.DataSourceFactory
 
 
+/*
 data class Ctf(val id: Int, val grupoId: Int, var puntuacion: Int)
+
 data class Grupo(val grupoid: Int, val mejorCtfId: Int = 0)
+*/
 
 fun main(args: Array<String>) {
 
@@ -31,23 +31,20 @@ fun main(args: Array<String>) {
     val dataSource = DataSourceFactory.getDS(DataSourceFactory.DataSourceType.HIKARI)
 
 
-    // Creamos la instancia de ctfDao
-    val ctfDao = CtfDAO(dataSource)
+    // Creamos la instancia de GrupoCtfDAO
+    val grupoCtfDao = GrupoCtfDAO(dataSource)
 
-    // Creamos la instancia de CtfService
-    val ctfService = CtfServiceImpl(ctfDao)
+    // Creamos la instancia de GrupoCtfServiceImplementación
+    val grupoCtfService = GrupoCtfServiceImpl(grupoCtfDao)
 
-    // Creamos la instancia de grupoDao
-    val grupoDao = GrupoDAO(dataSource)
-
-    // Creamos la instancia de GrupoService
-    val grupoService = GrupoServiceImpl(grupoDao)
 
 
 
     // Operaciones
 
     /*
+    Ejemplo:
+
     args[0] = "-a"
     args[1] = 1
     args[2] = 2
@@ -71,13 +68,13 @@ fun main(args: Array<String>) {
                 val puntuacion = args[3].toInt()
 
                 // Obtenemos el grupo que pertenece el grupoid
-                val grupo = grupoService.obtenerGrupo(grupoid)
+                val grupo = grupoCtfService.obtenerGrupo(grupoid)
 
                 if (grupo != null) {
                     /* Comprobamos si el CTF con 'id' ctfid ya cuenta con una participación del grupo
                        con 'id' grupoid
                      */
-                    val existeCtf = ctfService.obtenerCtf(ctfid)?.let{it.grupoid == grupoid } ?: false
+                    val existeCtf = grupoCtfService.obtenerCtf(ctfid)?.let{it.grupoid == grupoid } ?: false
 
                     if (existeCtf) {
                         println("ERROR: Ya existe una participación del grupo $grupoid en el CTF $ctfid.")
@@ -86,15 +83,15 @@ fun main(args: Array<String>) {
 
                         // Creamos si no existe el nuevo Ctf para insertarlo en la tabla
                         val nuevoCtf = CTF(ctfid, grupoid, puntuacion)
-                        ctfService.crearCtf(nuevoCtf)
+                        grupoCtfService.crearCtf(nuevoCtf)
 
                         /* Actualizar el campo mejorposCTFid de cada grupo en la tabla GRUPOS iterando
                            sobre cada uno.
 
                          */
-                        val grupos = grupoService.obtenerTodosGrupos()
+                        val grupos = grupoCtfService.obtenerTodosGrupos()
                         for (cadaGrupo in grupos) {
-                            grupoService.actualizarMejorPosCtf(cadaGrupo)
+                            grupoCtfService.actualizarMejorPosCtf(cadaGrupo)
                         }
 
                         println("Procesado: Añadida participación del grupo $grupoid en el CTF $ctfid con una puntuación de $puntuacion puntos.")
@@ -122,17 +119,17 @@ fun main(args: Array<String>) {
             el grupo con el id específico y si no es nulo se llama ahora a actualizarMejorPosCtf()
             y se le pasa por parámetro el grupo una vez eliminada la participación anteriormente.
              */
-            if (ctfService.obtenerCtf(ctfid) != null) {
-                ctfService.eliminarCtf(ctfid, grupoid)
+            if (grupoCtfService.obtenerCtf(ctfid) != null) {
+                grupoCtfService.eliminarCtf(ctfid, grupoid)
                 println("Procesado: Eliminada participación del grupo $grupoid en el CTF $ctfid.")
 
                 /* Actualizar el campo mejorposCTFid de cada grupo en la tabla GRUPOS iterando
                    sobre cada uno.
 
                  */
-                val grupos = grupoService.obtenerTodosGrupos()
+                val grupos = grupoCtfService.obtenerTodosGrupos()
                 for (cadaGrupo in grupos) {
-                    grupoService.actualizarMejorPosCtf(cadaGrupo)
+                    grupoCtfService.actualizarMejorPosCtf(cadaGrupo)
                 }
 
             } else {
@@ -150,7 +147,7 @@ fun main(args: Array<String>) {
 
             if (grupoid == null) {
                 // Listado de todos los grupos de la tabla
-                val grupos = grupoService.obtenerTodosGrupos()
+                val grupos = grupoCtfService.obtenerTodosGrupos()
                 println("Procesado: Listado de todos los grupos: ")
                 for (grupo in grupos) {
                     println("Grupo: ${grupo.grupoid}  ${grupo.grupodesc}  MejorCTF: ${grupo.mejorPosCTFid}")
@@ -158,7 +155,7 @@ fun main(args: Array<String>) {
             }
             else {
                 // Listado de una fila de un grupo concreto
-                val grupo = grupoService.obtenerGrupo(grupoid)
+                val grupo = grupoCtfService.obtenerGrupo(grupoid)
                 if (grupo == null) {
                     println("ERROR: No se ha encontrado el grupo con el id: $grupoid")
                 } else {
@@ -190,21 +187,21 @@ fun main(args: Array<String>) {
  *          first: Mejor posición
  *          second: Objeto CTF el que mejor ha quedado
  */
-private fun calculaMejoresResultados(participaciones: List<Ctf>): MutableMap<Int, Pair<Int, Ctf>> {
-    val participacionesByCTFId = participaciones.groupBy { it.id }
-    var participacionesByGrupoId = participaciones.groupBy { it.grupoId }
-    val mejoresCtfByGroupId = mutableMapOf<Int, Pair<Int, Ctf>>()
+private fun calculaMejoresResultados(participaciones: List<CTF>): MutableMap<Int, Pair<Int, CTF>> {
+    val participacionesByCTFId = participaciones.groupBy { it.CTFid }
+    var participacionesByGrupoId = participaciones.groupBy { it.grupoid }
+    val mejoresCtfByGroupId = mutableMapOf<Int, Pair<Int, CTF>>()
     participacionesByCTFId.values.forEach { ctfs ->
         val ctfsOrderByPuntuacion = ctfs.sortedBy { it.puntuacion }.reversed()
         participacionesByGrupoId.keys.forEach { grupoId ->
-            val posicionNueva = ctfsOrderByPuntuacion.indexOfFirst { it.grupoId == grupoId }
+            val posicionNueva = ctfsOrderByPuntuacion.indexOfFirst { it.grupoid == grupoId }
             if (posicionNueva >= 0) {
                 val posicionMejor = mejoresCtfByGroupId.getOrDefault(grupoId, null)
                 if (posicionMejor != null) {
                     if (posicionNueva < posicionMejor.first)
-                        mejoresCtfByGroupId.set(grupoId, Pair(posicionNueva, ctfsOrderByPuntuacion.get(posicionNueva)))
+                        mejoresCtfByGroupId[grupoId] = Pair(posicionNueva, ctfsOrderByPuntuacion[posicionNueva])
                 } else
-                    mejoresCtfByGroupId.set(grupoId, Pair(posicionNueva, ctfsOrderByPuntuacion.get(posicionNueva)))
+                    mejoresCtfByGroupId[grupoId] = Pair(posicionNueva, ctfsOrderByPuntuacion[posicionNueva])
 
             }
         }

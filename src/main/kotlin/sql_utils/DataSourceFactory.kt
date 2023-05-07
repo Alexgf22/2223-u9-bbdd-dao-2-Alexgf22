@@ -23,7 +23,8 @@ object DataSourceFactory {
                 config.username = "user"
                 config.password = "user"
                 config.driverClassName = "org.h2.Driver"
-                config.maximumPoolSize = 10
+                config.maximumPoolSize = 20
+                config.connectionTimeout = 1000
                 config.isAutoCommit = true
                 config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
                 val dataSource = HikariDataSource(config)
