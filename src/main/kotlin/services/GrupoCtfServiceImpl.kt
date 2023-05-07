@@ -7,12 +7,12 @@ import services.interfaces.ICtfService
 import services.interfaces.IGrupoService
 
 class GrupoCtfServiceImpl(private val grupoCtfDao: GrupoCtfDAO): ICtfService, IGrupoService {
-    override fun crearCtf(ctf: CTF) {
-        return grupoCtfDao.crearCtf(ctf)
+    override fun anadirCtf(ctf: CTF) {
+        return grupoCtfDao.anadirCtf(ctf)
     }
 
-    override fun obtenerCtf(id: Int): CTF? {
-        return grupoCtfDao.obtenerCtf(id)
+    override fun obtenerParticipacionCtf(id: Int, grupoid: Int): CTF? {
+        return grupoCtfDao.obtenerParticipacionCtf(id, grupoid)
     }
 
     override fun actualizarCtf(ctf: CTF) {
