@@ -177,7 +177,7 @@ fun main(args: Array<String>) {
  */
 private fun calculaMejoresResultados(participaciones: List<CTF>): MutableMap<Int, Pair<Int, CTF>> {
     // Agrupamos las participaciones por CTF id y por grupoid
-    val participacionesPorCTFId = participaciones.groupBy { it.CTFid }
+    val participacionesPorCTFId = participaciones.groupBy { it.ctfId }
     val participacionesPorGrupoId = participaciones.groupBy { it.grupoid }
 
     // Calculamos los mejores resultados de cada uno de los grupos en cada CTF

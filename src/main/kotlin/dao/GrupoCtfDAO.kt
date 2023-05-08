@@ -7,8 +7,24 @@ import dao.interfaces.IGrupoDao
 import java.sql.Connection
 import javax.sql.DataSource
 
+/**
+ * @property dataSource: DataSource  propiedad de acceso a datos  que se utiliza para configurar una conexión a una base de datos
+ * Esta clase implementa las interfaces tanto para la tabla Ctfs como la tabla
+ * Grupos. Realiza en primer lugar una conexión con la base de datos, después
+ * en el inicializador crea ambas tablas con las restricciones de clave
+ * primaria, clave foránea correspondientes y también inserta varios registros
+ * en la tabla Grupos. Tras el init se sobreescriben las funciones de las interfaces
+ * cada una con su comportamiento correspondiente según a que tabla haga
+ * referencia y la operación que tenga que hacer: insertar, obtener, actualizar, borrar...
+ *
+ */
 class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
 
+    /**
+     * La función obtener conexión intenta obtenerla haciendo uso de la propiedad
+     * dataSource.
+     * @return Connection devuelve la conexión a la base de datos.
+     */
     private fun obtenerConexion(): Connection {
         return dataSource.connection
     }
@@ -55,8 +71,17 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     }
 
 
-
-
+    /**
+     * La función crearGrupo realiza primero una consulta para insertar
+     * en la tabla grupos un nuevo registro. El valor de grupodesc se obtiene
+     * del objeto grupo que se le pasa por parámetro. Después se realiza una
+     * conexión a la base de datos. A continuación se prepara la consulta con
+     * el método prepareStatement. Dicho método devuelve un objeto PreparedStatement
+     * que se usa para ejecutar la consulta con el método executeUpdate. Después
+     * se actualiza el objeto grupo con el valor que tiene el campo grupoid que
+     * se obtiene con el método generatedKeys que devuelve un objeto ResultSet
+     * que contiene los valores de las claves generadas.
+     */
     override fun crearGrupo(grupo: Grupo) {
         val sql = "INSERT INTO GRUPOS(grupodesc) VALUES(?)"
         return dataSource.connection.use { conn ->
@@ -74,6 +99,10 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     *
+     */
     override fun obtenerGrupo(id: Int): Grupo? {
         val sql2 = "SELECT * FROM GRUPOS WHERE grupoid=?"
         return dataSource.connection.use { conn ->
@@ -161,7 +190,7 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         val sql = "INSERT INTO CTFS(CTFid, grupoid, puntuacion) VALUES(?, ?, ?)"
         return dataSource.connection.use { conn ->
             conn.prepareStatement(sql).use { stmt ->
-                stmt.setInt(1, ctf.CTFid)
+                stmt.setInt(1, ctf.ctfId)
                 stmt.setInt(2, ctf.grupoid)
                 stmt.setInt(3, ctf.puntuacion)
                 ctf
@@ -196,7 +225,7 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
             conn.prepareStatement(sql3).use { stmt ->
                 stmt.setInt(1, ctf.grupoid)
                 stmt.setInt(2, ctf.puntuacion)
-                stmt.setInt(3, ctf.CTFid)
+                stmt.setInt(3, ctf.ctfId)
                 stmt.executeUpdate()
                 ctf
             }

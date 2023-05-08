@@ -2,6 +2,10 @@ package services.interfaces
 
 import dao.entity.Grupo
 
+/**
+ * Interfaz que implementará la clase GrupoCtfDAO los metodos de crear, obtener
+ * grupo, actualizarMejorPosCtf , eliminar, obtener y eliminar todos los Grupos.
+ */
 interface IGrupoService {
 
     fun crearGrupo(grupo: Grupo)
