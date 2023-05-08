@@ -1,0 +1,95 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/[root]/index.html
+$dokka.location://main/#kotlin.Array[kotlin.String]/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/[root]/main.html
+$dokka.location:dao.entity////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/index.html
+$dokka.location:dao.entity/CTF///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-c-t-f/index.html
+$dokka.location:dao.entity/CTF/CTF/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-c-t-f/-c-t-f.html
+$dokka.location:dao.entity/CTF/ctfId/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-c-t-f/ctf-id.html
+$dokka.location:dao.entity/CTF/grupoid/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-c-t-f/grupoid.html
+$dokka.location:dao.entity/CTF/puntuacion/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-c-t-f/puntuacion.html
+$dokka.location:dao.entity/Grupo///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-grupo/index.html
+$dokka.location:dao.entity/Grupo/Grupo/#kotlin.Int#kotlin.String#kotlin.Int?/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-grupo/-grupo.html
+$dokka.location:dao.entity/Grupo/grupodesc/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-grupo/grupodesc.html
+$dokka.location:dao.entity/Grupo/grupoid/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-grupo/grupoid.html
+$dokka.location:dao.entity/Grupo/mejorPosCTFid/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.entity/-grupo/mejor-pos-c-t-fid.html
+$dokka.location:dao.interfaces////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/index.html
+$dokka.location:dao.interfaces/ICtfDao///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-ctf-dao/index.html
+$dokka.location:dao.interfaces/ICtfDao/actualizarCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-ctf-dao/actualizar-ctf.html
+$dokka.location:dao.interfaces/ICtfDao/anadirCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-ctf-dao/anadir-ctf.html
+$dokka.location:dao.interfaces/ICtfDao/eliminarCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-ctf-dao/eliminar-ctf.html
+$dokka.location:dao.interfaces/ICtfDao/obtenerParticipacionCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-ctf-dao/obtener-participacion-ctf.html
+$dokka.location:dao.interfaces/ICtfDao/obtenerTodosCtfs/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-ctf-dao/obtener-todos-ctfs.html
+$dokka.location:dao.interfaces/IGrupoDao///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/index.html
+$dokka.location:dao.interfaces/IGrupoDao/actualizarMejorPosCtf/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/actualizar-mejor-pos-ctf.html
+$dokka.location:dao.interfaces/IGrupoDao/crearGrupo/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/crear-grupo.html
+$dokka.location:dao.interfaces/IGrupoDao/eliminarGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/eliminar-grupo.html
+$dokka.location:dao.interfaces/IGrupoDao/eliminarTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/eliminar-todos-grupos.html
+$dokka.location:dao.interfaces/IGrupoDao/obtenerGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/obtener-grupo.html
+$dokka.location:dao.interfaces/IGrupoDao/obtenerTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao.interfaces/-i-grupo-dao/obtener-todos-grupos.html
+$dokka.location:dao////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/index.html
+$dokka.location:dao/GrupoCtfDAO///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/index.html
+$dokka.location:dao/GrupoCtfDAO/GrupoCtfDAO/#javax.sql.DataSource/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/-grupo-ctf-d-a-o.html
+$dokka.location:dao/GrupoCtfDAO/actualizarCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/actualizar-ctf.html
+$dokka.location:dao/GrupoCtfDAO/actualizarMejorPosCtf/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/actualizar-mejor-pos-ctf.html
+$dokka.location:dao/GrupoCtfDAO/anadirCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/anadir-ctf.html
+$dokka.location:dao/GrupoCtfDAO/crearGrupo/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/crear-grupo.html
+$dokka.location:dao/GrupoCtfDAO/eliminarCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/eliminar-ctf.html
+$dokka.location:dao/GrupoCtfDAO/eliminarGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/eliminar-grupo.html
+$dokka.location:dao/GrupoCtfDAO/eliminarTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/eliminar-todos-grupos.html
+$dokka.location:dao/GrupoCtfDAO/obtenerGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/obtener-grupo.html
+$dokka.location:dao/GrupoCtfDAO/obtenerParticipacionCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/obtener-participacion-ctf.html
+$dokka.location:dao/GrupoCtfDAO/obtenerTodosCtfs/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/obtener-todos-ctfs.html
+$dokka.location:dao/GrupoCtfDAO/obtenerTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/dao/-grupo-ctf-d-a-o/obtener-todos-grupos.html
+$dokka.location:services.interfaces////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/index.html
+$dokka.location:services.interfaces/ICtfService///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-ctf-service/index.html
+$dokka.location:services.interfaces/ICtfService/actualizarCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-ctf-service/actualizar-ctf.html
+$dokka.location:services.interfaces/ICtfService/anadirCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-ctf-service/anadir-ctf.html
+$dokka.location:services.interfaces/ICtfService/eliminarCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-ctf-service/eliminar-ctf.html
+$dokka.location:services.interfaces/ICtfService/obtenerParticipacionCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-ctf-service/obtener-participacion-ctf.html
+$dokka.location:services.interfaces/ICtfService/obtenerTodosCtfs/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-ctf-service/obtener-todos-ctfs.html
+$dokka.location:services.interfaces/IGrupoService///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/index.html
+$dokka.location:services.interfaces/IGrupoService/actualizarMejorPosCtf/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/actualizar-mejor-pos-ctf.html
+$dokka.location:services.interfaces/IGrupoService/crearGrupo/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/crear-grupo.html
+$dokka.location:services.interfaces/IGrupoService/eliminarGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/eliminar-grupo.html
+$dokka.location:services.interfaces/IGrupoService/eliminarTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/eliminar-todos-grupos.html
+$dokka.location:services.interfaces/IGrupoService/obtenerGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/obtener-grupo.html
+$dokka.location:services.interfaces/IGrupoService/obtenerTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services.interfaces/-i-grupo-service/obtener-todos-grupos.html
+$dokka.location:services////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/index.html
+$dokka.location:services/GrupoCtfServiceImpl///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/index.html
+$dokka.location:services/GrupoCtfServiceImpl/GrupoCtfServiceImpl/#dao.GrupoCtfDAO/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/-grupo-ctf-service-impl.html
+$dokka.location:services/GrupoCtfServiceImpl/actualizarCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/actualizar-ctf.html
+$dokka.location:services/GrupoCtfServiceImpl/actualizarMejorPosCtf/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/actualizar-mejor-pos-ctf.html
+$dokka.location:services/GrupoCtfServiceImpl/anadirCtf/#dao.entity.CTF/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/anadir-ctf.html
+$dokka.location:services/GrupoCtfServiceImpl/crearGrupo/#dao.entity.Grupo/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/crear-grupo.html
+$dokka.location:services/GrupoCtfServiceImpl/eliminarCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/eliminar-ctf.html
+$dokka.location:services/GrupoCtfServiceImpl/eliminarGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/eliminar-grupo.html
+$dokka.location:services/GrupoCtfServiceImpl/eliminarTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/eliminar-todos-grupos.html
+$dokka.location:services/GrupoCtfServiceImpl/obtenerGrupo/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/obtener-grupo.html
+$dokka.location:services/GrupoCtfServiceImpl/obtenerParticipacionCtf/#kotlin.Int#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/obtener-participacion-ctf.html
+$dokka.location:services/GrupoCtfServiceImpl/obtenerTodosCtfs/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/obtener-todos-ctfs.html
+$dokka.location:services/GrupoCtfServiceImpl/obtenerTodosGrupos/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/services/-grupo-ctf-service-impl/obtener-todos-grupos.html
+$dokka.location:sql_utils////PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/index.html
+$dokka.location:sql_utils/DataSourceFactory.DataSourceType.HIKARI///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-data-source-factory/-data-source-type/-h-i-k-a-r-i/index.html
+$dokka.location:sql_utils/DataSourceFactory.DataSourceType.JDBC///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-data-source-factory/-data-source-type/-j-d-b-c/index.html
+$dokka.location:sql_utils/DataSourceFactory.DataSourceType///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-data-source-factory/-data-source-type/index.html
+$dokka.location:sql_utils/DataSourceFactory///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-data-source-factory/index.html
+$dokka.location:sql_utils/DataSourceFactory/getDS/#sql_utils.DataSourceFactory.DataSourceType/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-data-source-factory/get-d-s.html
+$dokka.location:sql_utils/JdbcDataSource///PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/index.html
+$dokka.location:sql_utils/JdbcDataSource/JdbcDataSource/#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/-jdbc-data-source.html
+$dokka.location:sql_utils/JdbcDataSource/getConnection/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/get-connection.html
+$dokka.location:sql_utils/JdbcDataSource/getConnection/#kotlin.String?#kotlin.String?/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/get-connection.html
+$dokka.location:sql_utils/JdbcDataSource/getLogWriter/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/get-log-writer.html
+$dokka.location:sql_utils/JdbcDataSource/getLoginTimeout/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/get-login-timeout.html
+$dokka.location:sql_utils/JdbcDataSource/getParentLogger/#/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/get-parent-logger.html
+$dokka.location:sql_utils/JdbcDataSource/isWrapperFor/#java.lang.Class[*]?/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/is-wrapper-for.html
+$dokka.location:sql_utils/JdbcDataSource/setLogWriter/#java.io.PrintWriter?/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/set-log-writer.html
+$dokka.location:sql_utils/JdbcDataSource/setLoginTimeout/#kotlin.Int/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/set-login-timeout.html
+$dokka.location:sql_utils/JdbcDataSource/unwrap/#java.lang.Class[TypeParam(bounds=[kotlin.Any?])]?/PointingToDeclaration/2223-u9-bbdd-dao-2--alexgf22/sql_utils/-jdbc-data-source/unwrap.html
+dao
+dao.entity
+dao.interfaces
+services
+services.interfaces
+sql_utils
+

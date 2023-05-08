@@ -125,10 +125,16 @@ fun main(args: Array<String>) {
                sobre cada uno.
 
                 */
+
+
                 val grupos = grupoCtfService.obtenerTodosGrupos()
+
                 for (cadaGrupo in grupos) {
                     grupoCtfService.actualizarMejorPosCtf(cadaGrupo)
                 }
+
+
+
 
             }
 
@@ -144,9 +150,11 @@ fun main(args: Array<String>) {
             if (grupoid == null) {
                 // Listado de todos los grupos de la tabla
                 val grupos = grupoCtfService.obtenerTodosGrupos()
+
+                i("grupoCtfService.obtenerTodosGrupos", "Procesado: Listado de todos los grupos")
+
                 println("Procesado: Listado de todos los grupos: ")
 
-                i("grupoCtfService.obtenerTodosGrupos", "Procesado: Listado de todos los grupos:")
 
                 for (grupo in grupos) {
                     println("Grupo: ${grupo.grupoid}  ${grupo.grupodesc}  MejorCTF: ${grupo.mejorPosCTFid}")

@@ -158,6 +158,7 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
             i("GrupoCtfDAO.actualizarMejorPosCtf", "Preparing statement")
             conn.prepareStatement(sql3).use { stmt ->
                 stmt.setInt(1, grupo.grupoid)
+                i("GrupoCtfDAO.actualizarMejorPosCtf", "Executing query")
                 val rs = stmt.executeQuery()
                 if (rs.next()) {
                     val mejorCTFid = rs.getInt("CTFid")
@@ -169,7 +170,6 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
                     )
                     updateStmt.setInt(1, mejorCTFid)
                     updateStmt.setInt(2, grupo.grupoid)
-                    i("GrupoCtfDAO.actualizarMejorPosCtf", "Executing query")
                     updateStmt.executeUpdate()
                     grupo
                 }
@@ -335,6 +335,11 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     /**
      * @param id: Int
      * @param grupoid: Int
+     *
+     * La función lo que hace es eliminar un registro de la tabla CTFS de la base de datos
+     * que tenga el CTFid y grupoid especificados como parámetros. Se prepara un statement SQL
+     * con el comando DELETE y se le asignan los valores de los parámetros. Después se ejecuta el
+     * statement y se elimina el registro correspondiente.
      */
     override fun eliminarCtf(id: Int, grupoid: Int) {
         val sql4 = "DELETE FROM CTFS WHERE CTFid=? AND grupoid=?"
@@ -347,8 +352,19 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
                 stmt.executeUpdate()
             }
         }
+
     }
 
+
+
+
+    /**
+     * La función lo que hace es devolver una lista de todos los CTFs registrados en la base de datos.
+     * Primero se realiza la consulta SQL para seleccionar todos los registros de la tabla CTFS.
+     * Después se ejecuta la consulta y se itera a través del ResultSet para extraer cada fila y
+     * construir un objeto CTF con los valores de esa fila.
+     * @return List<CTF> se retorna una lista con los objetos CTF agregados anteriormente.
+     */
     override fun obtenerTodosCtfs(): List<CTF> {
         val sql5 = "SELECT * FROM CTFS"
         return dataSource.connection.use { conn ->
