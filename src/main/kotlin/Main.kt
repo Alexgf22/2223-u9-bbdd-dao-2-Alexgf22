@@ -1,5 +1,6 @@
 import dao.GrupoCtfDAO
 import dao.entity.CTF
+import logs.i
 import services.GrupoCtfServiceImpl
 import sql_utils.DataSourceFactory
 
@@ -88,6 +89,9 @@ fun main(args: Array<String>) {
                             grupoCtfService.actualizarMejorPosCtf(cadaGrupo)
                         }
 
+                        i("grupoCtfService.anadirCtf", "Procesado: Añadida participación del grupo $grupoid en" +
+                                "el CTF $ctfid con una puntuación de $puntuacion puntos.")
+
                         println("Procesado: Añadida participación del grupo $grupoid en el CTF $ctfid con una puntuación de $puntuacion puntos.")
                     }
 
@@ -111,6 +115,10 @@ fun main(args: Array<String>) {
                 val grupoid = args[2].toInt()
 
                 grupoCtfService.eliminarCtf(ctfid, grupoid)
+
+                i("grupoCtfService.eliminarCtf", "Procesado: Eliminada participación del grupo $grupoid"+
+                        " en el CTF $ctfid.")
+
                 println("Procesado: Eliminada participación del grupo $grupoid en el CTF $ctfid.")
 
                 /* Actualizar el campo mejorposCTFid de cada grupo en la tabla GRUPOS iterando
@@ -137,6 +145,9 @@ fun main(args: Array<String>) {
                 // Listado de todos los grupos de la tabla
                 val grupos = grupoCtfService.obtenerTodosGrupos()
                 println("Procesado: Listado de todos los grupos: ")
+
+                i("grupoCtfService.obtenerTodosGrupos", "Procesado: Listado de todos los grupos:")
+
                 for (grupo in grupos) {
                     println("Grupo: ${grupo.grupoid}  ${grupo.grupodesc}  MejorCTF: ${grupo.mejorPosCTFid}")
                 }
@@ -147,6 +158,9 @@ fun main(args: Array<String>) {
                 if (grupo == null) {
                     println("ERROR: No se ha encontrado el grupo con el id: $grupoid")
                 } else {
+                    i("grupoCtfService.obtenerGrupo", "Grupo: ${grupo.grupoid}  ${grupo.grupodesc} " +
+                            "MejorCTF: ${grupo.mejorPosCTFid}")
+
                     println("Procesado: Listado participación del grupo: ${grupo.grupodesc}")
                     println("Grupo: ${grupo.grupoid}  ${grupo.grupodesc}  MejorCTF: ${grupo.mejorPosCTFid} ")
                 }

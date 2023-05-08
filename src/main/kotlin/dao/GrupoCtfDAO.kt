@@ -4,6 +4,7 @@ import dao.entity.CTF
 import dao.entity.Grupo
 import dao.interfaces.ICtfDao
 import dao.interfaces.IGrupoDao
+import logs.i
 import java.sql.Connection
 import javax.sql.DataSource
 
@@ -87,8 +88,10 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun crearGrupo(grupo: Grupo) {
         val sql = "INSERT INTO GRUPOS(grupodesc) VALUES(?)"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.crearGrupo", "Preparing statement")
             conn.prepareStatement(sql).use { stmt ->
                 stmt.setString(1, grupo.grupodesc)
+                i("GrupoCtfDAO.crearGrupo", "Executing query")
                 stmt.executeUpdate()
                 grupo
 
@@ -108,8 +111,7 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
      * Se realiza una consulta a la base de datos para obtener los datos del grupo con el id
      * especificado con la propiedad dataSource para obtener una conexión a la base
      * de datos y hacer la consulta.
-     * Se crea un objeto PreparedStatement con la consulta:
-     * SQL "SELECT * FROM GRUPOS WHERE grupoid=?" y se establece el valor del parámetro id
+     * Se crea un objeto PreparedStatement con la consulta y se establece el valor del parámetro id
      * en el índice 1. Después se ejecuta la consulta con el método executeQuery() y se
      * guarda el resultado en un objeto ResultSet.
      *
@@ -122,8 +124,10 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun obtenerGrupo(id: Int): Grupo? {
         val sql2 = "SELECT * FROM GRUPOS WHERE grupoid=?"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.obtenerGrupo", "Preparing statement")
             conn.prepareStatement(sql2).use { stmt ->
                 stmt.setInt(1, id)
+                i("GrupoCtfDAO.obtenerGrupo", "Executing query")
                 val rs = stmt.executeQuery()
                 if (rs.next()) {
                     Grupo(
@@ -151,6 +155,7 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun actualizarMejorPosCtf(grupo: Grupo) {
         val sql3 = "SELECT CTFid, puntuacion FROM CTFS WHERE grupoid=? ORDER BY puntuacion DESC LIMIT 1"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.actualizarMejorPosCtf", "Preparing statement")
             conn.prepareStatement(sql3).use { stmt ->
                 stmt.setInt(1, grupo.grupoid)
                 val rs = stmt.executeQuery()
@@ -164,6 +169,7 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
                     )
                     updateStmt.setInt(1, mejorCTFid)
                     updateStmt.setInt(2, grupo.grupoid)
+                    i("GrupoCtfDAO.actualizarMejorPosCtf", "Executing query")
                     updateStmt.executeUpdate()
                     grupo
                 }
@@ -185,8 +191,10 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun eliminarGrupo(id: Int) {
         val sql4 = "DELETE FROM GRUPOS WHERE grupoid=?"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.eliminarGrupo", "Preparing statement")
             conn.prepareStatement(sql4).use { stmt ->
                 stmt.setInt(1, id)
+                i("GrupoCtfDAO.eliminarGrupo", "Executing query")
                 stmt.executeUpdate()
             }
         }
@@ -202,7 +210,9 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun obtenerTodosGrupos(): List<Grupo> {
         val sql5 = "SELECT * FROM GRUPOS"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.obtenerTodosGrupos", "Preparing statement")
             conn.prepareStatement(sql5).use { stmt ->
+                i("GrupoCtfDAO.obtenerTodosGrupos", "Executing query")
                 val rs = stmt.executeQuery()
                 val grupos = mutableListOf<Grupo>()
                 while (rs.next()) {
@@ -229,7 +239,9 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun eliminarTodosGrupos() {
         val sql6 = "DELETE FROM GRUPOS"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.eliminarTodosGrupos", "Preparing statement")
             conn.prepareStatement(sql6).use { stmt ->
+                i("GrupoCtfDAO.eliminarTodosGrupos", "Executing query")
                 stmt.executeUpdate()
             }
         }
@@ -248,10 +260,13 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun anadirCtf(ctf: CTF) {
         val sql = "INSERT INTO CTFS(CTFid, grupoid, puntuacion) VALUES(?, ?, ?)"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.anadirCtf", "Preparing statement")
             conn.prepareStatement(sql).use { stmt ->
                 stmt.setInt(1, ctf.ctfId)
                 stmt.setInt(2, ctf.grupoid)
                 stmt.setInt(3, ctf.puntuacion)
+                i("GrupoCtfDAO.anadirCtf", "Executing query")
+                stmt.executeUpdate()
                 ctf
             }
         }
@@ -269,9 +284,11 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun obtenerParticipacionCtf(id: Int, grupoid: Int): CTF? {
         val sql2 = "SELECT * FROM CTFS WHERE CTFid=? AND grupoid=?"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.obtenerParticipacionCtf", "Preparing statement")
             conn.prepareStatement(sql2).use { stmt ->
                 stmt.setInt(1, id)
                 stmt.setInt(2, grupoid)
+                i("GrupoCtfDAO.obtenerParticipacionCtf", "Executing query")
                 val rs = stmt.executeQuery()
                 if (rs.next()) {
                     CTF(
@@ -302,10 +319,12 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun actualizarCtf(ctf: CTF) {
         val sql3 = "UPDATE CTFS SET grupoid=?, puntuacion=? WHERE CTFid=?"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.actualizarCtf", "Preparing statement")
             conn.prepareStatement(sql3).use { stmt ->
                 stmt.setInt(1, ctf.grupoid)
                 stmt.setInt(2, ctf.puntuacion)
                 stmt.setInt(3, ctf.ctfId)
+                i("GrupoCtfDAO.actualizarCtf", "Executing query")
                 stmt.executeUpdate()
                 ctf
             }
@@ -320,9 +339,11 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun eliminarCtf(id: Int, grupoid: Int) {
         val sql4 = "DELETE FROM CTFS WHERE CTFid=? AND grupoid=?"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.eliminarCtf", "Preparing statement")
             conn.prepareStatement(sql4).use { stmt ->
                 stmt.setInt(1, id)
                 stmt.setInt(2, grupoid)
+                i("GrupoCtfDAO.eliminarCtf", "Executing query")
                 stmt.executeUpdate()
             }
         }
@@ -331,7 +352,9 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     override fun obtenerTodosCtfs(): List<CTF> {
         val sql5 = "SELECT * FROM CTFS"
         return dataSource.connection.use { conn ->
+            i("GrupoCtfDAO.obtenerTodosCtfs", "Preparing statement")
             conn.prepareStatement(sql5).use { stmt ->
+                i("GrupoCtfDAO.obtenerTodosCtfs", "Executing query")
                 val rs = stmt.executeQuery()
                 val ctfs = mutableListOf<CTF>()
                 while (rs.next()) {
