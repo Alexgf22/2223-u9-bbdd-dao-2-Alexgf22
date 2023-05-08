@@ -74,7 +74,9 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     /**
      * La función crearGrupo realiza primero una consulta para insertar
      * en la tabla grupos un nuevo registro. El valor de grupodesc se obtiene
-     * del objeto grupo que se le pasa por parámetro. Después se realiza una
+     * del objeto grupo que se le pasa por parámetro.
+     * @param grupo: Grupo  objeto de la clase Grupo que contiene varios atributos
+     * Después se realiza una
      * conexión a la base de datos. A continuación se prepara la consulta con
      * el método prepareStatement. Dicho método devuelve un objeto PreparedStatement
      * que se usa para ejecutar la consulta con el método executeUpdate. Después
@@ -101,7 +103,21 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
 
 
     /**
+     * Esta función recibe como parámetro un id.
+     * @param id de tipo Int.
+     * Se realiza una consulta a la base de datos para obtener los datos del grupo con el id
+     * especificado con la propiedad dataSource para obtener una conexión a la base
+     * de datos y hacer la consulta.
+     * Se crea un objeto PreparedStatement con la consulta:
+     * SQL "SELECT * FROM GRUPOS WHERE grupoid=?" y se establece el valor del parámetro id
+     * en el índice 1. Después se ejecuta la consulta con el método executeQuery() y se
+     * guarda el resultado en un objeto ResultSet.
      *
+     * El objeto Grupo se crea con los valores de las columnas 'grupoid', 'grupodesc' y
+     * 'mejorposCTFid' del registro obtenido en la consulta.
+     *
+     * @return Grupo?  devuelve un objeto Grupo con los datos obtenidos en la consulta si el objeto
+     * ResultSet tiene mínimo un registro, sino, devuelve null.
      */
     override fun obtenerGrupo(id: Int): Grupo? {
         val sql2 = "SELECT * FROM GRUPOS WHERE grupoid=?"
@@ -122,6 +138,16 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     * @param grupo: Grupo  objeto de la clase Grupo.
+     *
+     * La función actualizarMejorPosCtf lo que hace actualizar la propiedad mejorPosCTFid del objeto Grupo y la guarda en
+     * la base de datos. Primero, se realiza una consulta en la base de datos para obtener el CTF con la
+     * puntuación más alta del grupo especificado. Después, se actualiza la propiedad mejorPosCTFid del
+     * objeto Grupo con el id del CTF encontrado y se actualiza la fila correspondiente en la base de datos.
+     * @return grupo  se retorna el objeto Grupo actualizado
+     */
     override fun actualizarMejorPosCtf(grupo: Grupo) {
         val sql3 = "SELECT CTFid, puntuacion FROM CTFS WHERE grupoid=? ORDER BY puntuacion DESC LIMIT 1"
         return dataSource.connection.use { conn ->
@@ -145,6 +171,17 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     * @param id: Int identificador del Grupo.
+     * Se elimina un grupo de la base de datos mediante la ejecución de una sentencia SQL que borra la
+     * fila correspondiente a ese grupo en la tabla GRUPOS. Por lo que se utiliza un
+     * objeto PreparedStatement que se prepara con la sentencia SQL y se asigna el valor del parámetro
+     * id al marcador de posición ? en la sentencia. Después se ejecuta la consulta y se borra la fila
+     * perteneciente al grupo. La función no devuelve nada, ya que solamente elimina el
+     * grupo de la base de datos.
+     *
+     */
     override fun eliminarGrupo(id: Int) {
         val sql4 = "DELETE FROM GRUPOS WHERE grupoid=?"
         return dataSource.connection.use { conn ->
@@ -155,6 +192,13 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     * Se obtiene una lista de todos los grupos existentes en la base de datos. Posteriormente, se realiza una
+     * consulta SQL que selecciona todos los registros de la tabla "GRUPOS". Después, se recorre el ResultSet
+     * para crear objetos Grupo a partir de los datos obtenidos en la consulta y se agregan a una lista mutable.
+     * @return List<Grupo>  se retorna la lista de grupos creada.
+     */
     override fun obtenerTodosGrupos(): List<Grupo> {
         val sql5 = "SELECT * FROM GRUPOS"
         return dataSource.connection.use { conn ->
@@ -175,6 +219,13 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     * Esta función lo que hace es eliminar todos los registros de la tabla GRUPOS en la base de datos
+     * mediante la ejecución de una consulta SQL, conectándose a la base de datos, preparando y ejecutando
+     * la consulta.
+     * @return Unit
+     */
     override fun eliminarTodosGrupos() {
         val sql6 = "DELETE FROM GRUPOS"
         return dataSource.connection.use { conn ->
@@ -186,6 +237,14 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
 
 
     // Aquí empieza las consultas de la tabla CTFS
+
+    /**
+     * @param ctf: CTF objeto de la clase CTF.
+     * Lo que hace la función es:  recibir un objeto de tipo CTF, crea una consulta SQL que inserta
+     * los datos del CTF en la tabla "CTFS", y después ejecuta la consulta mediante la propiedad
+     * dataSource para obtener una conexión a la base de datos.
+     * @return CTF retorna el objeto CTF que se recibió como entrada.
+     */
     override fun anadirCtf(ctf: CTF) {
         val sql = "INSERT INTO CTFS(CTFid, grupoid, puntuacion) VALUES(?, ?, ?)"
         return dataSource.connection.use { conn ->
@@ -198,6 +257,15 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     * @param id: Int  identificador del Ctf.
+     * @param grupoid: Int  Identificador del grupo que participa en el CTF.
+     *
+     * En primer lugar, recibe dos parámetros, id y grupoid.
+     * La función busca en la base de datos una participación que tenga el id y el grupoid especificados
+     * @return CTF  objeto de la clase CTF con los datos que corresponden, sino, devuelve null.
+     */
     override fun obtenerParticipacionCtf(id: Int, grupoid: Int): CTF? {
         val sql2 = "SELECT * FROM CTFS WHERE CTFid=? AND grupoid=?"
         return dataSource.connection.use { conn ->
@@ -219,6 +287,18 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
     }
 
 
+    /**
+     * @param ctf: CTF instancia de la clase CTF.
+     *
+     * La función lo que hace es actualizar la información de un CTF existente en la base de datos.
+     * Primero, se define la consulta SQL que actualiza la información del CTF. Después se utiliza
+     * el objeto dataSource para obtener una conexión a la base de datos, se prepara
+     * la consulta SQL mediante la conexión obtenida y se asignan los valores de los parámetros
+     * a la consulta. A continuación, se ejecuta la consulta y se actualiza el objeto ctf que se
+     * ha pasado como parámetro.
+     * @return ctf  retorna el objeto ctf actualizado.
+     *
+     */
     override fun actualizarCtf(ctf: CTF) {
         val sql3 = "UPDATE CTFS SET grupoid=?, puntuacion=? WHERE CTFid=?"
         return dataSource.connection.use { conn ->
@@ -232,6 +312,11 @@ class GrupoCtfDAO(private val dataSource: DataSource): IGrupoDao, ICtfDao {
         }
     }
 
+
+    /**
+     * @param id: Int
+     * @param grupoid: Int
+     */
     override fun eliminarCtf(id: Int, grupoid: Int) {
         val sql4 = "DELETE FROM CTFS WHERE CTFid=? AND grupoid=?"
         return dataSource.connection.use { conn ->
